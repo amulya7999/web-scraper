@@ -20,8 +20,10 @@ for x in range(3):
     rollno = str(number)
     data={'mbstatus':'SEARCH','htno':rollno,'Submit.x':'32','Submit.y':'14'}
     res=c.post(url,data=data)
-    print(rollno)
     s = BeautifulSoup(res.content, 'html.parser')
+    print(rollno)
+    name = s.find_all('table')[0].find_all('tr')[6].find_all('td')[1].get_text()
+    print(name)
 #title=s.find_all('title')[0].get_text()
 #print(title)
 #subtitle=s.find_all('p')[0].get_text()
@@ -30,23 +32,17 @@ for x in range(3):
 #print(date)
 #subtitle2=s.find_all('td')[2].get_text()
 #print(subtitle2)
-    for i in (8,13):
-        subject = int(s.find_all('table')[1].find_all('tr')[i].find_all('td')[0].get_text())
-        if subject == enter:
+    for i in range(8, 13, 1):
+        subject = s.find_all('table')[1].find_all('tr')[i].find_all('td')[0].get_text()
+        if int(subject) != enter:
             continue
-        continue
         print(subject)
-    sbname = s.find_all('table')[1].find_all('tr')[i].find_all('td')[1].get_text()
-    name = s.find_all('table')[1].find_all('tr')[1].find_all('td')[1].get_text()
-    credit =  float(s.find_all('table')[1].find_all('tr')[i].find_all('td')[2].get_text())
-    grade =  int(s.find_all('table')[1].find_all('tr')[i].find_all('td')[3].get_text())
-    gradez = s.find_all('table')[1].find_all('tr')[i].find_all('td')[4].get_text()  
-    print(grade)
-    print(gradez)
-    print(subject)
-    print(name)
+        grade = s.find_all('table')[1].find_all('tr')[i].find_all('td')[3].get_text()
+        print(int(grade))
+        gradez = s.find_all('table')[1].find_all('tr')[i].find_all('td')[4].get_text()
+        print(gradez)
+        z=i
+sbname = s.find_all('table')[1].find_all('tr')[z].find_all('td')[1].get_text()
 print(sbname)
-    #print(credit)
-    
-
-
+credit =s.find_all('table')[1].find_all('tr')[z].find_all('td')[2].get_text()
+print(credit)
